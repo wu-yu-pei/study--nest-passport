@@ -2,6 +2,7 @@ import {
   BadRequestException,
   Body,
   Controller,
+  Get,
   Post,
   UseGuards,
 } from '@nestjs/common';
@@ -28,5 +29,11 @@ export class UserController {
   @Post('login')
   async login(@Request() req) {
     return this.authService.generateToken(req.user);
+  }
+
+  @UseGuards(AuthGuard('jwt'))
+  @Get('profile')
+  getProfile(@Request() req) {
+    return req.user;
   }
 }
