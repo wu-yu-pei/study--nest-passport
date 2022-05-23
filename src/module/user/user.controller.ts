@@ -10,7 +10,6 @@ import { AuthGuard } from '@nestjs/passport';
 import { UserService } from './user.service';
 import { Request } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
-import { JwtAuthGuard } from 'src/common/guard/JwtAuthGuard';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { Role } from './role.enum';
 
@@ -45,8 +44,6 @@ export class UserController {
   @Roles(Role.User)
   @Get('getAll')
   async getAll(@Request() req) {
-    console.log(req.user);
-
     return await this.userService.findAll();
   }
 }
