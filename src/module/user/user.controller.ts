@@ -41,9 +41,12 @@ export class UserController {
     return req.user;
   }
 
+  @UseGuards(AuthGuard('jwt'))
   @Roles(Role.User)
   @Get('getAll')
   async getAll(@Request() req) {
+    console.log(req.user);
+
     return await this.userService.findAll();
   }
 }
