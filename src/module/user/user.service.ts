@@ -36,4 +36,11 @@ export class UserService {
     }
     return res;
   }
+
+  async findAll() {
+    return await this.findByUsername({
+      username: 'wuyupei',
+      password: '123456',
+    } as User);
+  }
 }
