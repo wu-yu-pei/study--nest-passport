@@ -12,6 +12,7 @@ import { Request } from '@nestjs/common';
 import { AuthService } from '../auth/auth.service';
 import { Roles } from 'src/common/decorator/roles.decorator';
 import { Role } from './role.enum';
+import { RolesGuard } from 'src/common/guard/roles.guard';
 
 @Controller('user')
 export class UserController {
@@ -40,8 +41,8 @@ export class UserController {
     return req.user;
   }
 
-  @UseGuards(AuthGuard('jwt'))
-  @Roles(Role.User)
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard('jwt'), RolesGuard)
   @Get('getAll')
   async getAll(@Request() req) {
     return await this.userService.findAll();
